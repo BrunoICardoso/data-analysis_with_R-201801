@@ -6,18 +6,16 @@ load("aula-02/data/dados_exercicio.RData")
 
 ### 1 ####
 ## Inicie mostrando uma prévia do conteúdo da variável acessos_alunos
-## 
 ## Dica 1: No material sobre estruturas de dados vimos como exibir uma prévia do conteúdo de uma variável com 2 funções diferentes
 ## Dica 2: Na primeira aula vimos uma função do RStudio que permite visualizar o conteúdo de uma variável, mas neste caso 
 ##         quero ver uma saída na Console.
 ### # ####
-
-
+str(acessos_alunos)
 
 ### 2 ###
 ## Quantos elementos a variável acessos_alunos possui? Utilize uma função do R que retorna o tamanho da variável.
-
 ## Dica: Vimos um exemplo no mesmo material sobre estruturas de dados
+print(length(acessos_alunos))
 ### # ###
 
 
@@ -26,21 +24,34 @@ load("aula-02/data/dados_exercicio.RData")
 ## Utilizando o seu código de aluno da Uniritter como nome de um valor da lista, imprima uma linha informando quantos acessos
 ## você fez. A linha deve ser impressa na Console, com um texto que diga o seu código de aluno e o valor conforme o seguinte exemplo:
 ## "O aluno <alu...> realizou N acessos."
-
 ## Dica 1: Utilize a função paste() para composição do texto que será impresso. 
 ## Dica 2: Vimos exemplos disto nos materiais dos tipos numéricos e das estruturas de dados.
+print(paste("O aluno alu201830194 realizou  ",acessos_alunos["alu201830194"]," Acessos"))
 ### # ###
-
-
 
 ### 4 ###
 ## A operação abaixo cria um vetor com todas as quantidades de acessos por aluno.
 acessos <- unlist(acessos_alunos)
-
 ## Após a criação deste vetor, determine quantos colegas fizeram mais acessos que você.
 ## Faça isso em 3 etapas: 
 ## 1. Crie uma variável com o resultado de um teste de comparação (relacional) entre o seu número de acessos e os demais.
+
+for (c in acessos){
+    print(paste("Numero de acessos",acessos[c], "Comparado do aluno alu201830194"),acessos["alu201830194"])
+
+}
+
 ## 2. Com uma operação de indexação, crie um outro vetor contendo somente os valores maiores
+# for (c in acessos){
+#   
+#   if(c < acessos["alu201830194"])
+#     print(acessos[c])
+#   
+#   
+#   
+# }
+
+
 ## 3. Determine o tamanho do vetor da operação 2, imprimindo o resultado na Console
 ### # ###
 
@@ -77,7 +88,7 @@ acessos <- unlist(acessos_alunos)
 ### 8 ###
 ## Visualização da quantidade de alunos com cada nota de participação. Esta não é uma atividade, apenas uma ilustração de como
 ## criar uma tabela com esta contagem
-table(notas)
+# table(notas)
 
 
 
