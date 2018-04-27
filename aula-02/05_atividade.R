@@ -42,14 +42,14 @@ for (c in acessos){
 }
 
 ## 2. Com uma operação de indexação, crie um outro vetor contendo somente os valores maiores
-# for (c in acessos){
-#   
-#   if(c < acessos["alu201830194"])
-#     print(acessos[c])
-#   
-#   
-#   
-# }
+for (c in acessos){
+
+  if(c < acessos["alu201830194"])
+    print(acessos[c])
+
+
+
+}
 
 
 ## 3. Determine o tamanho do vetor da operação 2, imprimindo o resultado na Console
