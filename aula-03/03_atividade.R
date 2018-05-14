@@ -2,6 +2,7 @@
 
 ## Vamos começar carregando o arquivo de dados preparado para esta aula
 library(tidyverse)
+library(lubridate)
 
 salarios <- read_csv("aula-03/data/201802_dados_salarios_servidores.csv.gz")
 
@@ -14,6 +15,18 @@ salarios <- read_csv("aula-03/data/201802_dados_salarios_servidores.csv.gz")
 ## 
 ### # ####
 
+# Contação do dola no dia 28 de fevereiro 3.2443
+
+dolar <- 3.2443  # cotação dia 28/02/2018- compra
+
+salarios %>%
+  mutate(remuneracao_final = REMUNERACAO_REAIS + (REMUNERACAO_DOLARES * dolar)) -> subset_remuneracao_final
+
+subset_remuneracao_final %>%
+  filter(remuneracao_final >900) -> subset_filter_remurecaofinal
+  
+
+subset_filter_remurecaofinal
 
 ### 2 ####
 ## 
@@ -25,6 +38,12 @@ salarios <- read_csv("aula-03/data/201802_dados_salarios_servidores.csv.gz")
 salarios %>% count(UF_EXERCICIO) %>% pull(UF_EXERCICIO) -> ufs # EXEMPLO
 ## 
 ### # ####
+
+head(salarios %>%
+  filter(ORGSUP_EXERCICIO != ORGSUP_LOTACAO) %>%
+   count(DESCRICAO_CARGO,sort = TRUE),5) -> cargos_diferente_lotacao
+
+cargos_diferente_lotacao
 
 
 ### 3 ####
@@ -43,9 +62,21 @@ salarios %>% count(UF_EXERCICIO) %>% pull(UF_EXERCICIO) -> ufs # EXEMPLO
 ## Analise os valores por lotação dentro de um mesmo cargo e comente ao final do exercício se você considera alguma diferença significativa.
 ## 
 ## Dica 1: o operador %in% testa se valores de uma variável pertencem ao conjunto de valores de um vetor. Lembre que deve ser utilizada a variável cargos_diferente_lotacao
-salarios %>% filter(DESCRICAO_CARGO %in% c("MINISTRO DE PRIMEIRA CLASSE", "ANALISTA DE TEC DA INFORMACAO", "PESQUISADOR")) %>% count(DESCRICAO_CARGO) # EXEMPLO
+salarios %>% filter(DESCRICAO_CARGO %in% c("MINISTRO DE PRIMEIRA C### # ####LASSE", "ANALISTA DE TEC DA INFORMACAO", "PESQUISADOR")) %>% count(DESCRICAO_CARGO) # EXEMPLO
 ## Dica 2: Será necessário agrupar (group_by) por mais de uma variável para calcular as estatísticas solicitadas. 
 ## A função group_by permite múltiplos nomes de variáveis na mesma chamada.
-## 
-### # ####
+## ren
+
+
+
+salarios %>%
+  filter(DESCRICAO_CARGO %in%  c(cargos_diferente_lotacao%>% pull(DESCRICAO_CARGO))) -> filtro_cargos_diferentes
+
+  
+filtro_cargos_diferentes %>%count(DESCRICAO_CARGO)
+
+
+
+
+
 
