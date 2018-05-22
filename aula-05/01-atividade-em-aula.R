@@ -53,9 +53,12 @@ summary(DataFrameTed)
 
 # Verifique quais registros possuem a menor quantidade de línguas. Corrija para que possuam no mínimo 1 idioma.
 
-replace(DataFrameTed$languages,0,1) -> teste
+# replace(DataFrameTed$languages,DataFrameTed$languages == 0,1) ->teste
 
-summary(teste) 
+DataFrameTed %>% 
+  mutate(languages = replace(languages,languages == 0,1)) -> subset_Ted
+
+summary(subset_Ted) 
 
 
 # Verifique os 15 registros com menor data de filmagem. 
