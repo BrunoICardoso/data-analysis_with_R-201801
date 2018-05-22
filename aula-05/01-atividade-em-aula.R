@@ -1,18 +1,18 @@
 # Carregue a biblioteca tidyverse. Lembre que outras bibliotecas serão carregadas junto ao tidyverse
-
+library(tidyverse)
 
 
 
 # Crie um dataframe com o conteúdo do arquivo ted_main.csv.gz. 
-
+DataFrameTed <- read_csv("aula-05/data/ted_main.csv.gz")
 
 
 
 # Visualize o resumo dos dados do dataframe. Verifique os mínimos, máximos, médias e medianas das variáveis numéricas.
 # As variáveis duration, film_date e published_date estão no tipo de dados apropriado?
 
-
-
+summary(DataFrameTed)
+            
 
 # Converta as seguintes variáveis utilizando o pacote Lubridate:
 #     * duration, para duração (em segundos). Experimente utilizar as funções as.duration e duration. Mantenha aquela que considerar mais apropriada.
@@ -20,28 +20,42 @@
 #     * published_date, para data, com a função as_datetime..
 
 
-
+DataFrameTed%>%
+    mutate(duration  = as.duration(duration),
+           film_date = as_datetime(film_date),
+           published_date = as_datetime(published_date),
+           
+           )%>%View()
+    
 
 # Converta as seguintes variáveis character para variáveis categóricas com a função factor.
 #     * event
 #     * speaker_occupation
 
-
+DataFrameTed%>%
+  mutate(
+    event = factor(event),
+    speaker_occupation = factor(speaker_occupation)
+  )%>%View()
 
 
 # Retire do dataframe a variável name
 
-
+DataFrameTed$name <- NULL
+head(DataFrameTed)  
+  
 
 
 # Visualize novamente o resumo dos dados do dataframe. Verifique os mínimos, máximos, médias e medianas das variáveis numéricas. Verifique as contagens das variáveis categóricas
 
-
+summary(DataFrameTed) 
 
 
 # Verifique quais registros possuem a menor quantidade de línguas. Corrija para que possuam no mínimo 1 idioma.
 
+replace(DataFrameTed$languages,0,1) -> teste
 
+summary(teste) 
 
 
 # Verifique os 15 registros com menor data de filmagem. 
