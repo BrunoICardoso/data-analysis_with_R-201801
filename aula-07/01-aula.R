@@ -7,7 +7,7 @@
 #' 
 ## ----setup, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE, include=FALSE----
 library(tidyverse)
-Sys.setlocale("LC_ALL", "pt_BR")
+# Sys.setlocale("LC_ALL", "en_US")
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, out.width = "600px", out.height="400px")
 
 #' 
@@ -270,6 +270,27 @@ pgeom(6, prob=0.1, lower.tail = TRUE)
 #'     
 #'     + Você observou que, das últimas 500 _tentativas_ de publicação de reclamações, 340 acertaram a validação de CAPTCHA. Qual a probabilidade de uma quantidade entre 320 e 350 tentativas passarem pela validação de CAPTCHA a cada 500 tentativas? Dada a probabilidade de 70% de sucesso, qual o número esperado de publicações a cada 500 CAPTCHAS? DICA: ESTAMOS TRATANDO DA DISTRIBUIÇÃO BINOMIAL.
 #' 
+#' 
+#' 
+library(dplyr)
+
+set.seed(30194)
+
+sample_head_tails <- rbernoulli(500)
+
+seq_head_tails <- rle(sample_head_tails)
+
+seq_head_tails$lengths[!seq_head_tails$values]
+
+# df_geom_probs <- data_frame(x = 0:20, y=dgeom(0:20, prob = 0.1) * 100)-> df_geom_probs
+df_geom_probs <- data_frame(x = 0:20, y=pgeom(0:20, prob = 0.1) * 100)-> df_geom_probs
+
+ggplot(df_geom_probs, aes(x=x, y=y)) +
+  geom_col() +
+  scale_x_continuous(name = "Coroas até uma Cara", breaks=0:10) +
+  scale_y_continuous(name = "Prob (%)", breaks=seq(from=0, to=50, by=5)) +
+  theme_light()
+
 #' >> FIM ATIVIDADE
 #' 
 #' ### Variáveis aleatórias contínuas
